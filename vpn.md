@@ -4,6 +4,8 @@
 #### 1.Khái niệm
 - VPN (Virtual Private Network) là một công nghệ xây dựng một mạng riêng ảo trong môi trường mạng công cộng nhằm đáp ứng nhu cầu chia sẻ thông tin, truy cập từ xa.
 
+<img src="http://i.imgur.com/k7Nlisc.png">
+
 #### 2.Lợi ích
 - Chi phí thấp hơn so với thuê đường leased-line hay phương thức truy cập từ xa truyền thống
 - Tính linh hoạt cao.
