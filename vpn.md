@@ -4,10 +4,11 @@
 #### 1.Khái niệm
 - VPN (Virtual Private Network) là một công nghệ xây dựng một mạng riêng ảo trong môi trường mạng công cộng nhằm đáp ứng nhu cầu chia sẻ thông tin, truy cập từ xa.
 
-#### 2.Chức năng
-- Tính xác thực: Để thiết lập một kết nối VPN thì trước hết cả hai phải xác thực lẫn nhau để khẳng định rằng mình đang trao đổi thông tin với người mình mong muốn chứ không phải là một người khác
-- Tính toàn vẹn: Đảm bảo dữ liệu không bị thay đổi hay có bất kỳ sự xáo trộn nào trong quá trình truyền dẫn.
-- Tính bảo mật: Người gửi có thể mã hóa các gói dữ liệu trước khi truyền qua mạng công cộng và dữ liệu sẽ được giải mã ở phía thu. Bằng cách như vậy, không một ai có thể truy nhập thông tin mà không được phép. Thậm chí nếu có lấy được thì cũng không đọc được.
+#### 2.Lợi ích
+- Chi phí thấp hơn so với thuê đường leased-line hay phương thức truy cập từ xa truyền thống
+- Tính linh hoạt cao.
+- Tăng tính bảo mật dữ liệu được truyền đi.
+- Bảo mật địa chỉ IP.
 
 ### II.Kỹ thuật VPN
 #### 1.Yêu cầu
@@ -196,7 +197,7 @@ Phần tải PPP ban đầu được mật mã và đóng gói với phần tiê
 ##### b.Site to Site
 - VPN Site to Site là việc sử dụng mật mã dành cho nhiều người để kết nối nhiều điểm cố định với nhau thông qua mạng công cộng.
 - Trong VPN Site to Site, ta cũng có thể chia ra 2 loại là Intranet VPN và Extranet VPN:
-  <ul>
+ <ul>
   <li>Intranet VPN: Một tổ chức lớn có nhiều bộ phận, khu vực, chi nhánh muốn kết nối với nhau một cách an toàn và bí mật thông qua môi trường Internet. Họ sẽ tạo ra VPN Intranet kết nối LAN với LAN.</li>
   <li>Extranet VPN: Một tổ chức có nhiều mối quan hệ với những tổ chức khác như đối tác, khách hàng ..., họ có thể xây dựng Extranet VPN để kết nối LAN tổ chức này đến LAN tổ chức khác thông qua môi trường Internet</li>
   </ul>
