@@ -203,6 +203,7 @@ Phần tải PPP ban đầu được mật mã và đóng gói với phần tiê
   <li>Intranet VPN: Một tổ chức lớn có nhiều bộ phận, khu vực, chi nhánh muốn kết nối với nhau một cách an toàn và bí mật thông qua môi trường Internet. Họ sẽ tạo ra VPN Intranet kết nối LAN với LAN.</li>
   <li>Extranet VPN: Một tổ chức có nhiều mối quan hệ với những tổ chức khác như đối tác, khách hàng ..., họ có thể xây dựng Extranet VPN để kết nối LAN tổ chức này đến LAN tổ chức khác thông qua môi trường Internet</li>
   </ul>
+
 ## B.OpenVPN
 
 ## C.Tham khảo
