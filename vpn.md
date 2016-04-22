@@ -204,6 +204,7 @@ Phần tải PPP ban đầu được mật mã và đóng gói với phần tiê
   <li>Extranet VPN: Một tổ chức có nhiều mối quan hệ với những tổ chức khác như đối tác, khách hàng ..., họ có thể xây dựng Extranet VPN để kết nối LAN tổ chức này đến LAN tổ chức khác thông qua môi trường Internet</li>
   </ul>
 ## B.OpenVPN
+
 ## C.Tham khảo
 - http://luanvan.co/luan-van/nghien-cuu-va-trien-khai-mang-rieng-ao-vpn-30951/
 - https://tools.ietf.org/html/rfc1661
