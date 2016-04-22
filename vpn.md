@@ -165,13 +165,45 @@ Phần tải PPP ban đầu được mật mã và đóng gói với phần tiê
 <img src="http://i.imgur.com/6IPaS6L.png">
 
 ##### i.Kỹ thuật Secure Socket Layer (SSL)
+- SSL không phải là một giao thức đơn mà là 2 lớp giao thức, như minh họa dưới đây
+
+<img src="http://i.imgur.com/HWcG38Y.png">
+
+- Giao thức SSL Record: SSL Record Protocol cung cấp 2 dịch vụ cho kết nối SSL
+  <ul>
+  <li>*Confidentiality*(Tính cẩn mật): Handshake Protocol định nghĩa 1 khóa bí mật được chia sẻ, khóa này được sử dụng cho mã hóa quy ước các dữ liệu SSL.</li>
+  <li>*Message Integrity*(Tính toàn vẹn thông điệp): Handshake Protocol cũng định nghĩa 1 khóa bí mật được chia sẻ, khóa này được sử dụng để hình thành MAC (mã xác thực message)</li>
+  <li>Hoạt động của SSL Record Protocol cụ thể được minh họa trong hình sau:</li>
+  </ul>
+
+<img src="http://i.imgur.com/TqCY4It.png">
+
+- Giao thức SSL Change Cipher Spec: Đây là một giao thức khá đơn giản. Nó bao gồm một message đơn 1 byte giá trị là 1, với mục đích là sinh ra trạng thái tiếp theo để gán vào trạng thái hiện tại và trạng thái hiện tại cập nhật lại bộ mã hóa để sử dụng trên kết nối này
+
+<img src="http://i.imgur.com/qrbOwN0.png">
+
+- Giao thức SSL Alert: Giao thức này dùng để truyền cảnh báo liên kết SSL với đầu cuối bên kia. Mỗi message trong giao thức này gồm có 2 byte. Byte đầu giữ giá trị cảnh bảo hoặc nguy hiểm. Nếu mức độ là nguy hiểm (Ví dụ: Message không thích hợp, MAC không chính xác .v.v.v.) thì lập tức SSL ngắt kết nối. Byte thứ 2 chứa một mã chỉ ra cảnh báo đặc trưng.
+- Giao thức SSL Handshake: Giao thức này cho phép server và client chứng thực với nhau và thương lượng cơ chế mã hóa, thuật toán MAC và khóa mật mã được sử dụng để bảo vệ dữ liệu được gửi trong SSL Record. SSL Handshake Protocol thường được sử dụng trước khi dữ liệu của ứng dụng được truyền đi.
+
+<img src="http://i.imgur.com/PPZcHEw.png">
 
 #### 3.Các loại VPN thông dụng
 ##### a.Remote Access
+- VPN Remote Access còn được gọi là virtual private dial-up network (VPDN), là một kết nối từ người dùng đến mạng LAN công ty. Thường là nhu cầu của 1 tổ chức có nhiều nhân viên hay khách hàng muốn truy cập vào LAN công ty từ nhiều địa điểm từ xa. Vì lý do này, giải pháp Remote Access còn được gọi là client/server.
+
+<img src="http://i.imgur.com/JIcPnCo.png">
+
 ##### b.Site to Site
+- VPN Site to Site là việc sử dụng mật mã dành cho nhiều người để kết nối nhiều điểm cố định với nhau thông qua mạng công cộng.
+- Trong VPN Site to Site, ta cũng có thể chia ra 2 loại là Intranet VPN và Extranet VPN:
+  <ul>
+  <li>Intranet VPN: Một tổ chức lớn có nhiều bộ phận, khu vực, chi nhánh muốn kết nối với nhau một cách an toàn và bí mật thông qua môi trường Internet. Họ sẽ tạo ra VPN Intranet kết nối LAN với LAN.</li>
+  <li>Extranet VPN: Một tổ chức có nhiều mối quan hệ với những tổ chức khác như đối tác, khách hàng ..., họ có thể xây dựng Extranet VPN để kết nối LAN tổ chức này đến LAN tổ chức khác thông qua môi trường Internet</li>
+  </ul>
 ## B.OpenVPN
 ## C.Tham khảo
 - http://luanvan.co/luan-van/nghien-cuu-va-trien-khai-mang-rieng-ao-vpn-30951/
 - https://tools.ietf.org/html/rfc1661
 - http://www.vnpro.vn/giao-thuc-dinh-huong-lop-2-l2f-va-duong-ham-diem-diem-pptp-trong-vpn/
 - http://www.vnpro.vn/giao-thuc-duong-ham-lop-2-l2tp-va-giao-thuc-bao-mat-ip-ipsec-trong-vpn/
+- http://www.slideshare.net/conglongit90/giao-thc-bo-mt-ssl
