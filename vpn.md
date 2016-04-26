@@ -260,6 +260,8 @@ Phần tải PPP ban đầu được mật mã và đóng gói với phần tiê
 
 `./build-key-server server`
 
+<img src="http://i.imgur.com/ov8HERM.png">
+
 `./build-key client`
 
 - Tạo thông số DH bằng lệnh
@@ -277,7 +279,7 @@ Phần tải PPP ban đầu được mật mã và đóng gói với phần tiê
 #### Bước 3: Cấu hình VPN
 - Copy file *server.conf* vào thư mục */etc/openvpn*
 
-`cp /usr/share/doc/openvpn-2.3.2/sample/sample-config-files/server.conf /etc/openvpn/`
+`cp /usr/share/doc/openvpn-2.3.10/sample/sample-config-files/server.conf /etc/openvpn/`
 
 - Sửa file *server.conf*
 
