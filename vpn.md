@@ -207,7 +207,6 @@ Phần tải PPP ban đầu được mật mã và đóng gói với phần tiê
   </ul>
 
 ## B.OpenVPN
-
 ### I.Tổng quan
 - OpenVPN là một giải pháp VPN mã nguồn mở cung cấp đầy đủ tính năng như truy cập từ xa, mạng riêng ảo site-to-site, bảo mật, .v.v.v.
 - OpenVPN sử dụng một mô hình bảo mật mạnh được thiết kế để bảo vệ chống lại các cuộc tấn công chủ động và thụ động. Mô hình bảo mật OpenVPN là dựa vào việc sử dụng SSL / TLS để xác thực phiên và các giao thức IPSec ESP cho vận chuyển đường hầm an toàn qua UDP
@@ -215,23 +214,17 @@ Phần tải PPP ban đầu được mật mã và đóng gói với phần tiê
 - OpenVPN có tính linh động cao, chạy trên rất nhiều hệ điều hành như Linux, Solaris, OpenBSD, FreeBSD, NetBSD, Mac OS X và Windowns
 
 ### II.Hướng dẫn cài đặt OpenVPN trên Centos 6.X và OpenVPN Client trên Windowns
-
 #### Bước 1:Cài đặt các gói hỗ trợ
-
 ##### 1.1 Cài đặt OpenSSH LZO LZO-devel sử dụng kho RHEL bằng lệnh yum
-
 `yum install LZO LZO-devel openssh openssh-devel`
 
 ##### 1.2 Cài đặt EPEL
-
 `wget http://epel.mirror.net.in/epel/6/x86_64/epel-release-6-8.noarch.rpm`
 
 `rpm -ivh epel-release-6-8.noarch.rpm`
 
 #### Bước 2: Cài đặt OpenVPN server
-
 ##### 2.1 Cài đặt OpenVPN bằng lệnh
-
 `yum install openvpn easy-rsa`
 
 - Tạo thư mục  /easy-rsa/keys bên trong /etc/openvpn
@@ -243,7 +236,6 @@ Phần tải PPP ban đầu được mật mã và đóng gói với phần tiê
 `cp -rf /usr/share/easy-rsa/2.0/* /etc/openvpn/easy-rsa/`
 
 ##### 2.2 Tạo khóa
-
 - Sửa file /etc/openvpn/easy-rsa/vars theo các giá trị phù hợp
 
 `vi /etc/openvpn/easy-rsa/vars`
@@ -259,12 +251,15 @@ Phần tải PPP ban đầu được mật mã và đóng gói với phần tiê
 - Nhập lần lượt các lệnh
 
 `source ./vars`
+
 `./clean-all`
+
 `./build-ca`
 
 - Enter qua các bước, ta đã tạo xong khóa CA. Tương tự tạo khóa cho server và các client
 
 `./build-key-server server`
+
 `./build-key client`
 
 - Tạo thông số DH bằng lệnh
@@ -280,7 +275,6 @@ Phần tải PPP ban đầu được mật mã và đóng gói với phần tiê
 `cp dh2048.pem ca.crt server.crt server.key /etc/openvpn/`
 
 #### Bước 3: Cấu hình VPN
-
 - Copy file server.conf vào thư mục /etc/openvpn
 
 `cp /usr/share/doc/openvpn-2.3.2/sample/sample-config-files/server.conf /etc/openvpn/`
@@ -292,18 +286,20 @@ Phần tải PPP ban đầu được mật mã và đóng gói với phần tiê
 - Tìm và bỏ ghi chú các dòng
 
 `push "redirect-gateway def1 bypass-dhcp"`
+
 `user nobody`
+
 `group nobody`
 
 - Sửa DNS
 
 `push "dhcp-option DNS 8.8.8.8"`
+
 `push "dhcp-option DNS 8.8.4.4"`
 
 - Lưu lại và thoát
 
 #### Bước 4:Cấu hình IP forwarding
-
 - Sửa file sysctl.conf
 
 `vi /etc/sysctl.conf`
@@ -319,17 +315,16 @@ Phần tải PPP ban đầu được mật mã và đóng gói với phần tiê
 - Chạy các lệnh iptables sau
 
 `iptables -t nat -A POSTROUTING -s 10.8.0.0/24 -o eth0 -j MASQUERADE`
+
 `service iptables save`
+
 `service iptables restart`
 
 #### Bước 5: Cài đặt VPN client
-
 ##### 4.1 Tải và cài phần mềm OpenVPN Client tại
-
 `https://openvpn.net/index.php/open-source/downloads.html`
 
 ##### 4.2 Cấu hình VPN client
-
 - Copy thư mục client.ovpn từ thư mục /sample-config sang /config
 - Dùng Notepadd sửa file client.ovpn
 
@@ -340,10 +335,10 @@ Phần tải PPP ban đầu được mật mã và đóng gói với phần tiê
 <img src="http://i.imgur.com/rWj3Asr.png">
 
 #### Bước 6: Kết nối VPN
-
 - Khởi động dịch vụ OpenVPN server
 
 `service openvpn start`
+
 `chkconfig openvpn on`
 
 - Kiểm tra ip
