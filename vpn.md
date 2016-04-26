@@ -227,16 +227,16 @@ Phần tải PPP ban đầu được mật mã và đóng gói với phần tiê
 ##### 2.1 Cài đặt OpenVPN bằng lệnh
 `yum install openvpn easy-rsa`
 
-- Tạo thư mục  /easy-rsa/keys bên trong /etc/openvpn
+- Tạo thư mục  */easy-rsa/keys* bên trong */etc/openvpn*
 
 `mkdir -p /etc/openvpn/easy-rsa/keys`
 
-- Copy thư mục /usr/share/easy-rsa/2.0/ vào thư mục /etc/openvpn/easy-rsa/
+- Copy thư mục */usr/share/easy-rsa/2.0/* vào thư mục */etc/openvpn/easy-rsa/*
 
 `cp -rf /usr/share/easy-rsa/2.0/* /etc/openvpn/easy-rsa/`
 
 ##### 2.2 Tạo khóa
-- Sửa file /etc/openvpn/easy-rsa/vars theo các giá trị phù hợp
+- Sửa file */etc/openvpn/easy-rsa/vars* theo các giá trị phù hợp
 
 `vi /etc/openvpn/easy-rsa/vars`
 
@@ -244,7 +244,7 @@ Phần tải PPP ban đầu được mật mã và đóng gói với phần tiê
 
 <img src="http://i.imgur.com/8zLRnke.png">
 
-- Vào thư mục openvpn/easy-rsa 
+- Vào thư mục *openvpn/easy-rsa*
 
 `cd /etc/openvpn/easy-rsa/`
 
@@ -266,20 +266,20 @@ Phần tải PPP ban đầu được mật mã và đóng gói với phần tiê
 
 `./build-dh`
 
-- Vào thư mục /etc/openvpn/easy-rsa/keys/
+- Vào thư mục */etc/openvpn/easy-rsa/keys/*
 
 `cd /etc/openvpn/easy-rsa/keys/`
 
-- Copy các file dh2048.pem; ca.crt; server.crt; server.key vào /etc/openvpn/
+- Copy các file *dh2048.pem; ca.crt; server.crt; server.key* vào */etc/openvpn/*
 
 `cp dh2048.pem ca.crt server.crt server.key /etc/openvpn/`
 
 #### Bước 3: Cấu hình VPN
-- Copy file server.conf vào thư mục /etc/openvpn
+- Copy file *server.conf* vào thư mục */etc/openvpn*
 
 `cp /usr/share/doc/openvpn-2.3.2/sample/sample-config-files/server.conf /etc/openvpn/`
 
-- Sửa file server.conf
+- Sửa file *server.conf*
 
 `vi /etc/openvpn/server.conf`
 
@@ -300,11 +300,11 @@ Phần tải PPP ban đầu được mật mã và đóng gói với phần tiê
 - Lưu lại và thoát
 
 #### Bước 4:Cấu hình IP forwarding
-- Sửa file sysctl.conf
+- Sửa file *sysctl.conf*
 
 `vi /etc/sysctl.conf`
 
-- Tìm và thay giá trị "1" tại dòng IP forwarding.
+- Tìm và thay giá trị *"1"* tại dòng IP forwarding.
 
 <img src="http://i.imgur.com/y0UlurV.png">
 
@@ -325,12 +325,12 @@ Phần tải PPP ban đầu được mật mã và đóng gói với phần tiê
 `https://openvpn.net/index.php/open-source/downloads.html`
 
 ##### 4.2 Cấu hình VPN client
-- Copy thư mục client.ovpn từ thư mục /sample-config sang /config
-- Dùng Notepadd sửa file client.ovpn
+- Copy file *client.ovpn* từ thư mục */sample-config* sang */config*
+- Dùng Notepadd sửa file *client.ovpn*
 
 <img src="http://i.imgur.com/neXRtWE.png">
 
-- Dùng WinSCP copy các file ca.crt; client.crt; client.key vào thư mục /config
+- Dùng WinSCP copy các file *ca.crt; client.crt; client.key* vào thư mục */config*
 
 <img src="http://i.imgur.com/rWj3Asr.png">
 
