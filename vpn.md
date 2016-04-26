@@ -2,12 +2,14 @@
 ## A.VPN
 ### I.Tổng quan
 #### 1.Khái niệm
-- VPN (Virtual Private Network) là một công nghệ xây dựng một mạng riêng ảo trong môi trường mạng công cộng nhằm đáp ứng nhu cầu chia sẻ thông tin, truy cập từ xa.
+- VPN (Virtual Private Network) là một công nghệ cho phép kết nối các mạng tại các địa điểm khác nhau thành mạng riêng một cách an toàn, bằng cách sử dụng môi trường mạng công cộng như các lớp truyền tải.
+- VPN sử dụng mật mã để cung cấp sự bảo vệ chống lại các cuộc "nghe trộm" và các hoạt động tấn công.
+- VPN thường được sử dụng trong các trường hợp làm việc từ xa và liên kết văn phòng chi nhánh thông qua mạng WAN an toàn.
 
 <img src="http://i.imgur.com/k7Nlisc.png">
 
 #### 2.Lợi ích
-- Chi phí thấp hơn so với thuê đường leased-line hay phương thức truy cập từ xa truyền thống
+- Chi phí thấp.
 - Tính linh hoạt cao.
 - Tăng tính bảo mật dữ liệu được truyền đi.
 - Bảo mật địa chỉ IP.
@@ -203,10 +205,137 @@ Phần tải PPP ban đầu được mật mã và đóng gói với phần tiê
   <li>Intranet VPN: Một tổ chức lớn có nhiều bộ phận, khu vực, chi nhánh muốn kết nối với nhau một cách an toàn và bí mật thông qua môi trường Internet. Họ sẽ tạo ra VPN Intranet kết nối LAN với LAN.</li>
   <li>Extranet VPN: Một tổ chức có nhiều mối quan hệ với những tổ chức khác như đối tác, khách hàng ..., họ có thể xây dựng Extranet VPN để kết nối LAN tổ chức này đến LAN tổ chức khác thông qua môi trường Internet</li>
   </ul>
-
 ## B.OpenVPN
 
+### I.Tổng quan
+- OpenVPN là một giải pháp VPN mã nguồn mở cung cấp đầy đủ tính năng như truy cập từ xa, mạng riêng ảo site-to-site, bảo mật, .v.v.v.
+- OpenVPN sử dụng một mô hình bảo mật mạnh được thiết kế để bảo vệ chống lại các cuộc tấn công chủ động và thụ động. Mô hình bảo mật OpenVPN là dựa vào việc sử dụng SSL / TLS để xác thực phiên và các giao thức IPSec ESP cho vận chuyển đường hầm an toàn qua UDP
+- OpenVPN không phải là một ứng dụng web proxy và không hoạt động thông qua một trình duyệt web.
+- OpenVPN có tính linh động cao, chạy trên rất nhiều hệ điều hành như Linux, Solaris, OpenBSD, FreeBSD, NetBSD, Mac OS X và Windowns
+
+### II.Hướng dẫn cài đặt OpenVPN trên Centos 6.X và OpenVPN Client trên Windowns
+
+#### Bước 1:Cài đặt các gói hỗ trợ
+
+##### 1.1 Cài đặt OpenSSH LZO LZO-devel sử dụng kho RHEL bằng lệnh yum
+`yum install LZO LZO-devel openssh openssh-devel`
+
+##### 1.2 Cài đặt EPEL
+
+`wget http://epel.mirror.net.in/epel/6/x86_64/epel-release-6-8.noarch.rpm`
+`rpm -ivh epel-release-6-8.noarch.rpm`
+
+#### Bước 2: Cài đặt OpenVPN server
+
+##### 2.1 Cài đặt OpenVPN bằng lệnh
+
+`yum install openvpn easy-rsa`
+
+- Tạo thư mục  /easy-rsa/keys bên trong /etc/openvpn
+`mkdir -p /etc/openvpn/easy-rsa/keys`
+
+- Copy thư mục /usr/share/easy-rsa/2.0/ vào thư mục /etc/openvpn/easy-rsa/
+`cp -rf /usr/share/easy-rsa/2.0/* /etc/openvpn/easy-rsa/`
+
+##### 2.2 Tạo khóa
+
+- Sửa file /etc/openvpn/easy-rsa/vars theo các giá trị phù hợp
+`vi /etc/openvpn/easy-rsa/vars`
+- Ví dụ:
+
+<img src="http://i.imgur.com/8zLRnke.png">
+
+- Vào thư mục openvpn/easy-rsa 
+`cd /etc/openvpn/easy-rsa/`
+
+- Nhập lần lượt các lệnh
+`source ./vars`
+`./clean-all`
+`./build-ca`
+
+- Enter qua các bước, ta đã tạo xong khóa CA. Tương tự tạo khóa cho server và các client
+`./build-key-server server`
+`./build-key client`
+
+- Tạo thông số DH bằng lệnh
+`./build-dh`
+
+- Vào thư mục /etc/openvpn/easy-rsa/keys/
+`cd /etc/openvpn/easy-rsa/keys/`
+
+- Copy các file dh2048.pem; ca.crt; server.crt; server.key vào /etc/openvpn/
+`cp dh2048.pem ca.crt server.crt server.key /etc/openvpn/`
+
+#### Bước 3: Cấu hình VPN
+
+- Copy file server.conf vào thư mục /etc/openvpn
+`cp /usr/share/doc/openvpn-2.3.2/sample/sample-config-files/server.conf /etc/openvpn/`
+
+- Sửa file server.conf
+`vi /etc/openvpn/server.conf`
+
+- Tìm và bỏ ghi chú các dòng
+`push "redirect-gateway def1 bypass-dhcp"`
+`user nobody`
+`group nobody`
+
+- Sửa DNS
+`push "dhcp-option DNS 8.8.8.8"`
+`push "dhcp-option DNS 8.8.4.4"`
+
+- Lưu lại và thoát
+
+#### Bước 4:Cấu hình IP forwarding
+
+- Sửa file sysctl.conf
+`vi /etc/sysctl.conf`
+- Tìm và thay giá trị "1" tại dòng IP forwarding.
+
+<img src="http://i.imgur.com/y0UlurV.png">
+
+- Lưu thay đổi
+`sysctl -p`
+
+- Chạy các lệnh iptables sau
+`iptables -t nat -A POSTROUTING -s 10.8.0.0/24 -o eth0 -j MASQUERADE`
+`service iptables save`
+`service iptables restart`
+
+#### Bước 5: Cài đặt VPN client
+##### 4.1 Tải và cài phần mềm OpenVPN Client tại
+`https://openvpn.net/index.php/open-source/downloads.html`
+##### 4.2 Cấu hình VPN client
+- Copy thư mục client.ovpn từ thư mục /sample-config sang /config
+- Dùng Notepadd sửa file client.ovpn
+<img src="http://i.imgur.com/neXRtWE.png">
+
+- Dùng WinSCP copy các file ca.crt; client.crt; client.key vào thư mục /config
+<img src="http://i.imgur.com/rWj3Asr.png">
+
+#### Bước 6: Kết nối VPN
+- Khởi động dịch vụ OpenVPN server
+`service openvpn start`
+`chkconfig openvpn on`
+
+- Kiểm tra ip
+
+<img src="http://i.imgur.com/GQVsMPs.png">
+
+- Tắt iptables
+`service iptables stop`
+
+- Kết nối từ Client
+
+- Kiểm tra ip client
+
+<img src="http://i.imgur.com/ene5Oil.png">
+
+- Kiểm tra kết nối
+
+<img src="http://i.imgur.com/Y88OBnq.png">
+
 ## C.Tham khảo
+- http://www.unixmen.com/setup-openvpn-server-client-centos-6-5/
 - http://luanvan.co/luan-van/nghien-cuu-va-trien-khai-mang-rieng-ao-vpn-30951/
 - https://tools.ietf.org/html/rfc1661
 - http://www.vnpro.vn/giao-thuc-dinh-huong-lop-2-l2f-va-duong-ham-diem-diem-pptp-trong-vpn/
